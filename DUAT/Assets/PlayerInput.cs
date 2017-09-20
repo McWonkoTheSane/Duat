@@ -20,41 +20,29 @@ public class PlayerInput : MonoBehaviour
 	// Update is called once per frame
 	void Update ()
     {
-		if(Input.GetKey(KeyCode.D))
-        {
-            movementManager.MoveRight();
-        }
-        if (Input.GetKey(KeyCode.A))
-        {
-            movementManager.MoveLeft();
-        }
-        if(Input.GetKey(KeyCode.Space))
+        if(Input.GetAxis("Jump") > 0)
         {
             movementManager.Jump();
         }
-        if(Input.GetKey(KeyCode.LeftShift))
+        if(Input.GetAxis("Dash") > 0)
         {
-            movementManager.Dash();
+            movementManager.Dash(Input.GetAxis("Horizontal"));
         }
-        if(Input.GetKey(KeyCode.Alpha1) && !formManager.khepriForm)
+        if(Input.GetAxis("Khepri Swap") != 0 && !formManager.khepriForm)
         {
             formManager.ChangeForm("Khepri");
         }
-        if (Input.GetKey(KeyCode.Alpha2) && !formManager.khnumForm)
+        if (Input.GetAxis("Khnum Swap") != 0 && !formManager.khnumForm)
         {
             formManager.ChangeForm("Khnum");
         }
-        if (Input.GetKey(KeyCode.Alpha3) && !formManager.raForm)
+        if (Input.GetAxis("Ra Swap") != 0 && !formManager.raForm)
         {
             formManager.ChangeForm("Ra");
         }
-    }
-
-    private void OnCollisionEnter2D(Collision2D collision)
-    {
-        if (collision.gameObject.tag == "Platform")
+        if(Input.GetAxis("Osiris Swap") != 0 && !formManager.osirisForm)
         {
-            movementManager.isGrounded = true;
+            formManager.ChangeForm("Osiris");
         }
     }
 }

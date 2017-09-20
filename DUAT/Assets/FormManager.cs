@@ -15,6 +15,7 @@ public class FormManager : MonoBehaviour
     public bool khepriForm = false;
     public bool khnumForm = false;
     public bool raForm = false;
+    public bool osirisForm = false;
 
     private bool ableToSwap = true;
 
@@ -29,6 +30,7 @@ public class FormManager : MonoBehaviour
         availableForms.Add("Khepri");
         availableForms.Add("Khnum");
         availableForms.Add("Ra");
+        availableForms.Add("Osiris");
     }
 	
 	// Update is called once per frame
@@ -52,18 +54,28 @@ public class FormManager : MonoBehaviour
                 khepriForm = true;
                 khnumForm = false;
                 raForm = false;
+                osirisForm = false;
                 break;
             case "Khnum":
                 Debug.Log("Swapped to Khnum");
                 khepriForm = false;
                 khnumForm = true;
                 raForm = false;
+                osirisForm = false;
                 break;
             case "Ra":
                 Debug.Log("Swapped to Ra");
                 khepriForm = false;
                 khnumForm = false;
                 raForm = true;
+                osirisForm = false;
+                break;
+            case "Osiris":
+                Debug.Log("Swapped to Osiris");
+                khepriForm = false;
+                khnumForm = false;
+                raForm = false;
+                osirisForm = true;
                 break;
         }
     }

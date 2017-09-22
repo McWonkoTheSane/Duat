@@ -69,11 +69,6 @@ public class PlayerMovementManager : MonoBehaviour
         }
         //End placeholder section
 
-        if(formManager.raForm)
-        {
-            canDoubleJump = true;
-        }
-
         if(dashUsed)
         {
             dashTimer -= Time.deltaTime;
@@ -102,7 +97,7 @@ public class PlayerMovementManager : MonoBehaviour
         }
     }
 
-    //This one's rel tricky, bet you'll never guess what it does
+    //This one's real tricky, bet you'll never guess what it does
     public void Jump()
     {
         if (isGrounded)
@@ -110,18 +105,15 @@ public class PlayerMovementManager : MonoBehaviour
             numJumps = 0;
             playerRigidbody.AddForce(Vector2.up * jumpForce, ForceMode2D.Impulse);
             isGrounded = false;
+            canDoubleJump = true;
         }
         else
         {
-            if (canDoubleJump && numJumps < 2)
+            if (formManager.raForm && canDoubleJump)
             {
-                numJumps++;
+                canDoubleJump = false;
                 playerRigidbody.velocity = new Vector2(playerRigidbody.velocity.x, 0);
                 playerRigidbody.AddForce(Vector2.up * jumpForce, ForceMode2D.Impulse);
-            }
-            else
-            {
-                return;
             }
         }
     }

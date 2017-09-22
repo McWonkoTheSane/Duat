@@ -78,8 +78,10 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Assets\AbilityUse.cs" />
-    <Compile Include="Assets\FormManager.cs" />
+    <Compile Include="Assets\BasicEnemyBehavior.cs" />
+    <Compile Include="Assets\Depricated\FormManager.cs" />
+    <Compile Include="Assets\PlayerCollisionManager.cs" />
+    <Compile Include="Assets\PlayerHealth.cs" />
     <Compile Include="Assets\PlayerInput.cs" />
     <Compile Include="Assets\PlayerMovementManager.cs" />
   </ItemGroup>

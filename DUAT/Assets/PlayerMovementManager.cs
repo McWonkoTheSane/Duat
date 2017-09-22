@@ -8,18 +8,16 @@ public class PlayerMovementManager : MonoBehaviour
     /// Controls anything to do with the player moving
     /// </summary>
 
-    public FormManager formManager;
     public PlayerInput playerInput;
 
     public LayerMask playerMask;
 
-    public float moveForce;
-    public float jumpForce;
-    public float dashForce;
+    [SerializeField]private float moveForce;
+    [SerializeField]private float jumpForce;
+    [SerializeField]private float dashForce;
+    [SerializeField]private float knockbackForce;
 
     private bool canDoubleJump = false;
-
-    public int numJumps = 0;
 
     private float dashTimer = 5f;
 
@@ -40,17 +38,28 @@ public class PlayerMovementManager : MonoBehaviour
     // Use this for initialization
     void Start ()
     {
+        //Populating Variables
         playerRigidbody = this.transform.parent.GetComponent<Rigidbody2D>();
         tagGround = GameObject.Find(playerRigidbody.gameObject.name + "/tag_ground").transform;
     }
 
     private void FixedUpdate()
     {
+        /**
+         * Checks if player is grounded based on a linecast from the player to
+         * the object tagGround, ignoreing the player object in the linecast.
+         * Any object that needs to be ignored can be added via PLayerMask in
+         * the unity editor
+        **/
         isGrounded = Physics2D.Linecast(currentPosition, tagGround.position, playerMask);
-        if(isGrounded)
+
+        //Adds an extra downward force to make jumping less floaty
+        if(!isGrounded)
         {
-            numJumps = 0;
+            playerRigidbody.AddForce(Vector2.down * 2.0f, ForceMode2D.Impulse);
         }
+
+        //Calls move regularly 
         Move(Input.GetAxis("Horizontal"));
     }
 
@@ -69,23 +78,28 @@ public class PlayerMovementManager : MonoBehaviour
         }
         //End placeholder section
 
+        //Dash cooldown timer
         if(dashUsed)
         {
             dashTimer -= Time.deltaTime;
         }
-
         if (dashTimer <= 0)
         {
             dashUsed = false;
             dashTimer = 5f;
         }
 
+        //Grabs the current position of player
         currentPosition = GetComponentInParent<Transform>().transform.position;
 	}
 
     #region Movement Methods
 
-    //Move
+    /// <summary>
+    /// Moves player based on @horizInput (for keyboard either moving or stationary, 
+    /// for controller can move at varying speed). Called regularly/
+    /// </summary>
+    /// <param name="horizInput"></param>
     public void Move(float horizInput)
     {
         if(!isDashing)
@@ -97,19 +111,20 @@ public class PlayerMovementManager : MonoBehaviour
         }
     }
 
-    //This one's real tricky, bet you'll never guess what it does
+    /// <summary>
+    /// Player jumps, also handles double jmping
+    /// </summary>
     public void Jump()
     {
         if (isGrounded)
         {
-            numJumps = 0;
             playerRigidbody.AddForce(Vector2.up * jumpForce, ForceMode2D.Impulse);
             isGrounded = false;
             canDoubleJump = true;
         }
         else
         {
-            if (formManager.raForm && canDoubleJump)
+            if (canDoubleJump)
             {
                 canDoubleJump = false;
                 playerRigidbody.velocity = new Vector2(playerRigidbody.velocity.x, 0);
@@ -118,19 +133,41 @@ public class PlayerMovementManager : MonoBehaviour
         }
     }
 
-    //Khepri movement ability
+    /// <summary>
+    /// Moves player rapidly forwards in the direction they were facing
+    /// @TODO: Sync this with animations, very reliant on them
+    /// </summary>
+    /// <param name="horizInput"></param>
     public void Dash(float horizInput)
     {
-        if(formManager.khepriForm && !dashUsed)
+        if(!dashUsed && playerRigidbody.velocity.magnitude != 0)
         {
             isDashing = true;
             Debug.Log("Dash");
             horizInput = Mathf.Round(horizInput);
-            playerRigidbody.velocity = new Vector2(horizInput * dashForce, 0);
+            if(horizInput < 0)
+            {
+                playerRigidbody.AddForce(Vector2.left * dashForce, ForceMode2D.Impulse);
+            }
+            else
+            {
+                playerRigidbody.AddForce(Vector2.right * dashForce, ForceMode2D.Impulse);
+            }
+
             dashUsed = true;
         }
     }
 
+    /// <summary>
+    /// Knocks the player back away from the thing they hit using @direction.
+    /// @TODO: WIP and may become depricated
+    /// </summary>
+    /// <param name="direction"></param>
+    public void DamageKnockback(Vector2 direction)
+    {
+        Debug.Log("Called");
+        playerRigidbody.AddForce(direction * knockbackForce, ForceMode2D.Impulse);
+    }
 
 #endregion
 }

@@ -2,9 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class AbilityUse : MonoBehaviour
+public class PlayerCollisionManager : MonoBehaviour
 {
-    public FormManager formManager;
     public PlayerMovementManager movementManager;
 
 	// Use this for initialization

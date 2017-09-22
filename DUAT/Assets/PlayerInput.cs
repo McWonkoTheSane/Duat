@@ -9,7 +9,6 @@ public class PlayerInput : MonoBehaviour
     /// </summary>
 
     public PlayerMovementManager movementManager;
-    public FormManager formManager;
 
 	// Use this for initialization
 	void Start ()
@@ -20,29 +19,14 @@ public class PlayerInput : MonoBehaviour
 	// Update is called once per frame
 	void Update ()
     {
-        if(Input.GetAxis("Jump") > 0)
+        //Checks if specific action buttons are in use and calls appropriate methods
+        if(Input.GetKeyDown(KeyCode.Space))
         {
             movementManager.Jump();
         }
         if(Input.GetAxis("Dash") > 0)
         {
             movementManager.Dash(Input.GetAxis("Horizontal"));
-        }
-        if(Input.GetAxis("Khepri Swap") != 0 && !formManager.khepriForm)
-        {
-            formManager.ChangeForm("Khepri");
-        }
-        if (Input.GetAxis("Khnum Swap") != 0 && !formManager.khnumForm)
-        {
-            formManager.ChangeForm("Khnum");
-        }
-        if (Input.GetAxis("Ra Swap") != 0 && !formManager.raForm)
-        {
-            formManager.ChangeForm("Ra");
-        }
-        if(Input.GetAxis("Osiris Swap") != 0 && !formManager.osirisForm)
-        {
-            formManager.ChangeForm("Osiris");
         }
     }
 }

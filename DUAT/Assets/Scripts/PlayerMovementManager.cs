@@ -54,7 +54,7 @@ public class PlayerMovementManager : MonoBehaviour
         isGrounded = Physics2D.Linecast(currentPosition, tagGround.position, playerMask);
 
         //Adds an extra downward force to make jumping less floaty
-        if(!isGrounded)
+        if(!isGrounded && !isDashing)
         {
             playerRigidbody.AddForce(Vector2.down * 2.0f, ForceMode2D.Impulse);
         }
@@ -147,7 +147,14 @@ public class PlayerMovementManager : MonoBehaviour
             horizInput = Mathf.Round(horizInput);
             if(horizInput < 0)
             {
-                playerRigidbody.AddForce(Vector2.left * dashForce, ForceMode2D.Impulse);
+                if(!isGrounded)
+                {
+                    
+                }
+                else
+                {
+                    playerRigidbody.AddForce(Vector2.left * dashForce, ForceMode2D.Impulse);
+                }
             }
             else
             {

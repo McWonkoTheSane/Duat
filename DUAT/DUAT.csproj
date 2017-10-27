@@ -78,12 +78,15 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Assets\BasicEnemyBehavior.cs" />
     <Compile Include="Assets\Depricated\FormManager.cs" />
-    <Compile Include="Assets\PlayerCollisionManager.cs" />
-    <Compile Include="Assets\PlayerHealth.cs" />
-    <Compile Include="Assets\PlayerInput.cs" />
-    <Compile Include="Assets\PlayerMovementManager.cs" />
+    <Compile Include="Assets\Scripts\BasicEnemyBehavior.cs" />
+    <Compile Include="Assets\Scripts\Dialogue.cs" />
+    <Compile Include="Assets\Scripts\DialogueManager.cs" />
+    <Compile Include="Assets\Scripts\Interactable.cs" />
+    <Compile Include="Assets\Scripts\PlayerCollisionManager.cs" />
+    <Compile Include="Assets\Scripts\PlayerHealth.cs" />
+    <Compile Include="Assets\Scripts\PlayerInput.cs" />
+    <Compile Include="Assets\Scripts\PlayerMovementManager.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="GenerateTargetFrameworkMonikerAttribute" />

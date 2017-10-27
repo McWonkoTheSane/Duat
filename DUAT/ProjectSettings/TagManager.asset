@@ -5,8 +5,10 @@ TagManager:
   serializedVersion: 2
   tags:
   - Platform
-  - Wall_Breakable
   - Enemy
+  - Interactable
+  - NPC_Interactable
+  - Platform_Breakable
   layers:
   - Default
   - TransparentFX

@@ -79,10 +79,12 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Assets\Depricated\FormManager.cs" />
+    <Compile Include="Assets\Ladder.cs" />
     <Compile Include="Assets\Scripts\BasicEnemyBehavior.cs" />
     <Compile Include="Assets\Scripts\Dialogue.cs" />
     <Compile Include="Assets\Scripts\DialogueManager.cs" />
     <Compile Include="Assets\Scripts\Interactable.cs" />
+    <Compile Include="Assets\Scripts\PlayerAttack.cs" />
     <Compile Include="Assets\Scripts\PlayerCollisionManager.cs" />
     <Compile Include="Assets\Scripts\PlayerHealth.cs" />
     <Compile Include="Assets\Scripts\PlayerInput.cs" />
